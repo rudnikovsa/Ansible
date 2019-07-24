@@ -1,0 +1,20 @@
+---
+- name: Uninstall Nginx
+  hosts: all
+  become: true
+
+  tasks:
+
+  - name: Check and Print Linux Version
+    debug: var=ansible_os_family
+
+  - name: Remove Nginx
+    apt:
+      pkg: nginx
+      state: absent
+
+  - name: Remove mysql
+    apt:
+      pkg: mysql
+      state: absent
+    sudo : yes

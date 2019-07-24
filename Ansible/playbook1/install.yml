@@ -1,0 +1,39 @@
+---
+- name: Install Nginx
+  hosts: webservers
+  become: true
+
+  tasks:
+
+  - name: Check and Print Linux Version
+    debug: var=ansible_os_family
+
+  - name: Update apt
+    apt: update_cache=yes
+
+  - name: Install Nginx
+    package:
+      name: nginx
+      state: latest
+
+  handlers:
+    - name: restart nginx
+      service: name=nginx state=restarted enabled=yes
+
+
+- name: Install Mysql
+  hosts: dbservers
+  become: true
+
+  tasks:
+
+  - name: Check and Print Linux Version
+    debug: var=ansible_os_family
+
+  - name: Update apt
+    apt: update_cache=yes
+
+  - name: Install Mysql
+    package:
+      name: mysql-server
+      state: latest
